@@ -1,22 +1,18 @@
 package com.apbfor;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public static void main(String[] args) {
 
+        Point center1 = new Point(4,5);
+        Circle ass1 = new Circle(center1,5);
+        Circle ass2 = new Circle(center1,6);
+        System.out.println(ass1.equals(center1));
 
         List<Circle> circles = new ArrayList();
         List<Point>  points  = new ArrayList();
-
-        String path = "point.out";
-        String path1 = "circle.out";
-
 
         int change;
         Scanner in = new Scanner(System.in);
@@ -27,9 +23,9 @@ public class Main {
             switch (change){
                 case 1:{
                     System.out.print("X = ");
-                    int x = in.nextInt();
+                    double x = in.nextDouble();
                     System.out.print("Y = ");
-                    int y = in.nextInt();
+                    double y = in.nextDouble();
 
                     Point a = new Point(x,y);
                     points.add(a);
@@ -38,11 +34,11 @@ public class Main {
                 case 2:{
 
                     System.out.print("X = ");
-                    int x = in.nextInt();
+                    double x = in.nextDouble();
                     System.out.print("Y = ");
-                    int y = in.nextInt();
+                    double y = in.nextDouble();
                     System.out.print("Radius = ");
-                    int radius = in.nextInt();
+                    double radius = in.nextDouble();
 
                     Point center = new Point(x,y);
                     Circle a = new Circle(center,radius);
@@ -53,21 +49,27 @@ public class Main {
                 case 3:{
                     int changes;
                     PrintChange();
+                    List<Point> points1 = new ArrayList<>();
+
+                    for(int i = 0; i<points.size(); i++){
+                        points1.add(points.get(i));
+                    }
+
                     changes = in.nextInt();
                     switch (changes) {
                         case 1:
                             break;
                         case 2:{
-                            points.sort((o1, o2) -> o1.compareTox(o2));
+                            points1.sort((o1, o2) -> o1.compareTox(o2));
                             break;
                         }
                         case 3:{
-                            points.sort((o1, o2) -> o1.compareTox(o2));
-                            Collections.reverse(points);
+                            points1.sort((o1, o2) -> o1.compareTox(o2));
+                            Collections.reverse(points1);
                             break;
                         }
                     }
-                    for(Point point : points)
+                    for(Point point : points1)
                         point.draw();
                     break;
                 }
@@ -75,58 +77,73 @@ public class Main {
                 case 4:{
                     int changes;
                     PrintChange();
+                    List<Circle> circles1 = new ArrayList<>();
+                    for(int i=0; i<circles.size(); i++){
+                        circles1.add(circles.get(i));
+                    }
+
                     changes = in.nextInt();
                     switch (changes) {
                         case 1:
                             break;
                         case 2:{
-                            circles.sort((o1, o2) -> o1.compareTox(o2));
+                            circles1.sort((o1, o2) -> o1.compareTox(o2));
                             break;
                         }
                         case 3:{
-                            circles.sort((o1, o2) -> o1.compareTox(o2));
-                            Collections.reverse(circles);
+                            circles1.sort((o1, o2) -> o1.compareTox(o2));
+                            Collections.reverse(circles1);
                             break;
                         }
                     }
-                    for(Circle circle :circles)
+                    for(Circle circle :circles1)
                         circle.draw();
                     break;
                 }
 
                 case 5:{
-                    int x, y;
+                    double x, y;
                     System.out.print("X = ");
-                    x = in.nextInt();
+                    x = in.nextDouble();
                     System.out.print("Y = ");
-                    y = in.nextInt();
+                    y = in.nextDouble();
                     points.removeIf(p->p.getX()==x&&p.getY()==y);
                     break;
                     }
                 case 6:{
-                    int x,y,radius;
+                    double x,y,radius;
                     System.out.print("X = ");
-                    x = in.nextInt();
+                    x = in.nextDouble();
                     System.out.print("Y = ");
-                    y = in.nextInt();
+                    y = in.nextDouble();
                     System.out.print("Radius = ");
-                    radius = in.nextInt();
+                    radius = in.nextDouble();
                     Point center = new Point(x,y);
                     Circle second = new Circle(center,radius);
                     circles.removeIf(p->p.equals(second));
                     break;
                 }
-                case 7: {
+                case 7:{
                     System.out.println("Точки, содержащиеся хотя бы в одной окружности : ");
                     PrintInside(points, circles);
                     break;
                 }
 
+                case 9:{
+                    circles.sort((o1, o2) -> o1.compareTox(o2));
+                    for(Circle circle :circles)
+                        circle.draw();
+                    break;
+                }
+
+
             }
+
+
 
         }while (change!=0);
 
-   }
+    }
 
         static void PrintChange() {
             System.out.println("1.Вывести в порядке, в котором осуществлялось добавление");
@@ -144,18 +161,14 @@ public class Main {
             System.out.println("6.Удаление из списка окружностей одной");
             System.out.println("7.Вывод на экран точек, находящихся внутри хотя бы одной окружности" +
                     " из списка окружностей");
-            System.out.println("0.Выход");
 
         }
-
 
         public static void PrintInside(List<Point> points, List<Circle> circles){
            first: for (Point point : points){
                 for (Circle circle : circles){
                     if (IsInside(point, circle)) {
-                        System.out.println("Точка с координатами X = "+point.getX()+"; Y = "+point.getY()+
-                                " находится в окружности с координатами X = "+circle.getX()+"; Y = "+
-                                circle.getY()+"; радиуса : "+circle.getRadius());
+                        point.draw();
                         continue first;
                     }
                 }
@@ -175,4 +188,5 @@ public class Main {
             return !result;
 
         }
+
 }

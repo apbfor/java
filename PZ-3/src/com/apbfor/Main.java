@@ -49,21 +49,27 @@ public class Main {
                 case 3:{
                     int changes;
                     PrintChange();
+                    List<Point> points1 = new ArrayList<>();
+
+                    for(int i = 0; i<points.size(); i++){
+                        points1.add(points.get(i));
+                    }
+
                     changes = in.nextInt();
                     switch (changes) {
                         case 1:
                             break;
                         case 2:{
-                            points.sort((o1, o2) -> o1.compareTox(o2));
+                            points1.sort((o1, o2) -> o1.compareTox(o2));
                             break;
                         }
                         case 3:{
-                            points.sort((o1, o2) -> o1.compareTox(o2));
-                            Collections.reverse(points);
+                            points1.sort((o1, o2) -> o1.compareTox(o2));
+                            Collections.reverse(points1);
                             break;
                         }
                     }
-                    for(Point point : points)
+                    for(Point point : points1)
                         point.draw();
                     break;
                 }
@@ -71,21 +77,26 @@ public class Main {
                 case 4:{
                     int changes;
                     PrintChange();
+                    List<Circle> circles1 = new ArrayList<>();
+                    for(int i=0; i<circles.size(); i++){
+                        circles1.add(circles.get(i));
+                    }
+
                     changes = in.nextInt();
                     switch (changes) {
                         case 1:
                             break;
                         case 2:{
-                            circles.sort((o1, o2) -> o1.compareTox(o2));
+                            circles1.sort((o1, o2) -> o1.compareTox(o2));
                             break;
                         }
                         case 3:{
-                            circles.sort((o1, o2) -> o1.compareTox(o2));
-                            Collections.reverse(circles);
+                            circles1.sort((o1, o2) -> o1.compareTox(o2));
+                            Collections.reverse(circles1);
                             break;
                         }
                     }
-                    for(Circle circle :circles)
+                    for(Circle circle :circles1)
                         circle.draw();
                     break;
                 }
