@@ -9,13 +9,12 @@ public class Main {
 
         List<Circle> circles = new ArrayList();
         List<Point>  points  = new ArrayList();
-        FileWriter fw;
 
-        try (BufferedReader br = new BufferedReader(new FileReader("circles.txt"))){
+        try (BufferedReader br = new BufferedReader(new FileReader("circles.txt"))){ //читаем дамп окружностей
             String s;
-            while ((s=br.readLine())!=null) {
-                String[] one = s.split(" ");
-                double x = Double.parseDouble(one[0]);
+            while ((s=br.readLine())!=null) { //берем строку, пока она есть в файле
+                String[] one = s.split(" "); //разбиваем строку на массив строк
+                double x = Double.parseDouble(one[0]);//зная структуру строки и, соответсвенно, массива, парсим x,y,r
                 double y = Double.parseDouble(one[1]);
                 double radius = Double.parseDouble(one[2]);
 
@@ -25,11 +24,11 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
-        try (BufferedReader br = new BufferedReader(new FileReader("points.txt"))){
+        try (BufferedReader br = new BufferedReader(new FileReader("points.txt"))){ //читаем дамп точек
             String s;
-            while ((s=br.readLine())!=null) {
-                String[] one = s.split(" ");
-                double x = Double.parseDouble(one[0]);
+            while ((s=br.readLine())!=null) { //берем строку, пока она есть в файле
+                String[] one = s.split(" ");//разбиваем строку на массив строк
+                double x = Double.parseDouble(one[0]);//зная структуру строки и, соответсвенно, массива, парсим x и y
                 double y = Double.parseDouble(one[1]);
 
                 points.add(new Point(x, y));
@@ -40,12 +39,12 @@ public class Main {
 
         int change;
         Scanner in = new Scanner(System.in);
-
+        FileWriter fw;
         do {
             PrintMenu();
             change = in.nextInt();
             switch (change){
-                case 1:{
+                case 1:{ //добавление точки в список
                     System.out.print("X = ");
                     double x = in.nextDouble();
                     System.out.print("Y = ");
@@ -53,8 +52,7 @@ public class Main {
                     points.add(new Point(x,y));
                     break;
                 }
-                case 2:{
-
+                case 2:{ //добавление окружности в список
                     System.out.print("X = ");
                     double x = in.nextDouble();
                     System.out.print("Y = ");
@@ -65,7 +63,7 @@ public class Main {
                     break;
                 }
 
-                case 3:{
+                case 3:{ //печать списка точек
                     int changes;
                     PrintChange();
                     List<Point> points1 = new ArrayList<>();
@@ -74,6 +72,7 @@ public class Main {
                         points1.add(points.get(i));
                     }
 
+                    //порядок печати списка точек
                     changes = in.nextInt();
                     switch (changes) {
                         case 1:
@@ -93,14 +92,14 @@ public class Main {
                     break;
                 }
 
-                case 4:{
+                case 4:{ //печать списка окружностей
                     int changes;
                     PrintChange();
                     List<Circle> circles1 = new ArrayList<>();
                     for(int i=0; i<circles.size(); i++){
                         circles1.add(circles.get(i));
                     }
-
+                    //порядок печати списка окружностей
                     changes = in.nextInt();
                     switch (changes) {
                         case 1:
@@ -120,7 +119,7 @@ public class Main {
                     break;
                 }
 
-                case 5:{
+                case 5:{ //удаление из списка определенной точки
                     double x, y;
                     System.out.print("X = ");
                     x = in.nextDouble();
@@ -129,7 +128,7 @@ public class Main {
                     points.removeIf(p->p.getX()==x&&p.getY()==y);
                     break;
                     }
-                case 6:{
+                case 6:{ //удаление из списка окружности
                     double x,y,radius;
                     System.out.print("X = ");
                     x = in.nextDouble();
@@ -148,7 +147,7 @@ public class Main {
                     break;
                 }
 
-                case 8: {
+                case 8: { //сохранение точек в файл
                     int changes;
                     PrintChange();
                     List<Point> points1 = new ArrayList<>();
@@ -158,7 +157,7 @@ public class Main {
                     }
 
                     changes = in.nextInt();
-                    switch (changes) {
+                    switch (changes) { //выбираем порядок, в котором будем сохранять
                         case 1:
                             break;
                         case 2: {
@@ -175,12 +174,12 @@ public class Main {
                     System.out.println("Введите путь/название файла");
                     path = in.next();
                     File file = new File(path);
-                    if(file.exists()){
-                        int fileextists;
+                    if(file.exists()){ //если такой файл уже есть
+                        int fileExists;
                         PrintFileExists();
-                        fileextists = in.nextInt();
-                        switch (fileextists){
-                            case 1:{
+                        fileExists = in.nextInt();
+                        switch (fileExists){
+                            case 1:{ //дописываем в конец
                                 fw = new FileWriter(file,true);
                                 for(int i=0; i<points1.size(); i++){
                                     fw.write(points1.get(i).toString1());
@@ -189,7 +188,7 @@ public class Main {
                                 fw.close();
                                 break;
                             }
-                            case 2:{
+                            case 2:{ //перезаписываем
                                 fw = new FileWriter(file);
                                 for(int i=0; i<points1.size(); i++){
                                     fw.write(points1.get(i).toString1());
@@ -198,11 +197,11 @@ public class Main {
                                 fw.close();
                                 break;
                             }
-                            case 3:
+                            case 3: //отказались от записи
                                 break;
                         }
                     }
-                    else {
+                    else { //если файла нет, со спокойной душой записываем как новый
                         fw = new FileWriter(file);
                         for(int i=0; i<points1.size(); i++){
                             fw.write(points1.get(i).toString1());
@@ -212,7 +211,7 @@ public class Main {
                     }
                     break;
                 }
-                case 9:{
+                case 9:{ //сохранение окружностей в файл
                     int changes;
                     PrintChange();
                     List<Circle> circles1 = new ArrayList<>();
@@ -222,7 +221,7 @@ public class Main {
                     }
 
                     changes = in.nextInt();
-                    switch (changes) {
+                    switch (changes) { //выбираем порядок сохранения
                         case 1:
                             break;
                         case 2:{
@@ -239,12 +238,12 @@ public class Main {
                     System.out.println("Введите путь/название файла");
                     path = in.next();
                     File file = new File(path);
-                    if(file.exists()){
-                        int fileextists;
+                    if(file.exists()){ //если такой файл есть
+                        int fileExists;
                         PrintFileExists();
-                        fileextists = in.nextInt();
-                        switch (fileextists){
-                            case 1:{
+                        fileExists = in.nextInt();
+                        switch (fileExists){
+                            case 1:{ //дописываем
                                 fw = new FileWriter(file,true);
                                 for(int i=0; i<circles1.size(); i++){
                                     fw.write(circles1.get(i).toString1());
@@ -253,7 +252,7 @@ public class Main {
                                 fw.close();
                                 break;
                             }
-                            case 2:{
+                            case 2:{ //перезаписываем
                                 fw = new FileWriter(file);
                                 for(int i=0; i<circles1.size(); i++){
                                     fw.write(circles1.get(i).toString1());
@@ -262,11 +261,11 @@ public class Main {
                                 fw.close();
                                 break;
                             }
-                            case 3:
+                            case 3: //выходим без записи
                                 break;
                         }
                     }
-                    else {
+                    else { //если файла нет, создаем и пишем
                         fw = new FileWriter(file);
                         for(int i=0; i<circles1.size(); i++){
                             fw.write(circles1.get(i).toString1());
@@ -285,6 +284,8 @@ public class Main {
 
 
         }while (change!=0);
+
+        // Здесь реализовано какое-то подобие сохранения всех данных в "дамп файлы"
 
         fw = new FileWriter("circles.txt");
 
