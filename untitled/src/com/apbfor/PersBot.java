@@ -48,6 +48,12 @@ public class PersBot extends TelegramLongPollingBot {
         photoBook.add("AgADAgADBKoxG_PYKUk7JfTZNPiwuoBuXw8ABEEzqCyti5r3i1gDAAEC");
         photoBook.add("AgADAgADBaoxG_PYKUnHjkRpbKpcNSIC9Q4ABP1M3KTiTxpwqmIGAAEC");
         photoBook.add("AgADAgADBKoxG2SRKUmmjebwT-ycwHx5Xw8ABHtd4XrZf5hEBFgDAAEC");
+        photoBook.add("AgADAgADXKoxG4_BCErwI66m0SlWOv9IOQ8ABLPcU7_s22wMxLQBAAEC");
+        photoBook.add("AgADAgAD9KoxG06sEErnSbHQmeqALOqXOQ8ABBpgm7EY1OgraMwDAAEC");
+        photoBook.add("AgADAgADFKoxGz2auEoWuiciVHQ_RvtD8w4ABEm1WPAt1kFzPXQGAAEC");
+        photoBook.add("AgADAgADNaoxGz2auEoKnkkXt9AN2Dj79A4ABPGY7EZeqYxsGIAEAAEC");
+        photoBook.add("AgADAgAD-KkxG7tBAAFLoglsEnkCozcUZF8PAATCYqSLFQ_hkgqvAQABAg");
+
 
         ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
         List<KeyboardRow> keyboard = new ArrayList<>();

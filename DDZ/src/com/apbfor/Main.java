@@ -46,12 +46,14 @@ public class Main {
                             number = in.nextInt();
                             for (Key key : keys){
                                 if(key.number==number){
-                                    if(key.getOwner()!=owner){
+                                    if(!key.getOwner().equals(owner)){
                                         System.out.println("You aren't owner of this key");
                                         break;
                                     }
-                                    else
+                                    else {
                                         keys.remove(key);
+                                        break;
+                                    }
                                 }
                             }
                             break;
@@ -98,13 +100,15 @@ public class Main {
                             System.out.println("Enter a name of your door");
                             name = in.next();
                             for (Door door : doors){
-                                if(door.name==name){
-                                    if(door.getOwner()!=owner){
+                                if(door.name.equals(name)){
+                                    if(!door.getOwner().equals(owner)){
                                         System.out.println("You aren't owner of this door");
                                         break;
                                     }
-                                    else
+                                    else {
                                         doors.remove(door);
+                                        break;
+                                    }
                                 }
                             }
                             break;
@@ -128,8 +132,8 @@ public class Main {
                 }
 
                 case 9:{
-                    String name = in.next();
-                    userKeys(keys,name);
+                    String owner = in.next();
+                    userKeys(keys,owner);
                 }
 
 
@@ -145,13 +149,18 @@ public class Main {
     }
 
     static void userKeys(ArrayList<Key>keys,String owner){
+        Scanner in = new Scanner(System.in);
         System.out.println("You have keys:");
         int keyNumber=0;
         for(Key key : keys){
-            if(key.getOwner()==owner){
+            if(key.getOwner().equals(owner)){
                 System.out.println(keyNumber+". "+key.number+" key");
+                keyNumber++;
             }
         }
+        System.out.println("Take a key >> ");
+        int takeKey = in.nextInt();
+        System.out.println(keys.get(takeKey).number);
     }
 
     static void printKeys(ArrayList<Key>keys){
