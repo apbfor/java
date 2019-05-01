@@ -1,18 +1,50 @@
 package com.apbfor;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) {
-
-        Point center1 = new Point(4,5);
-        Circle ass1 = new Circle(center1,5);
-        Circle ass2 = new Circle(center1,6);
-        System.out.println(ass1.equals(center1));
+    public static void main(String[] args) throws IOException {
 
         List<Circle> circles = new ArrayList();
         List<Point>  points  = new ArrayList();
+
+
+        try (BufferedReader br = new BufferedReader(new FileReader("circles.txt"))){
+            String s;
+            while ((s=br.readLine())!=null) {
+                //System.out.println(s);
+                String[] one = s.split(" ");
+                double x = Double.parseDouble(one[0]);
+                double y = Double.parseDouble(one[1]);
+                double radius = Double.parseDouble(one[2]);
+
+                Point center = new Point(x, y);
+                Circle a = new Circle(center, radius);
+                circles.add(a);
+            }
+        } catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+
+        try (BufferedReader br = new BufferedReader(new FileReader("points.txt"))){
+            String s;
+            while ((s=br.readLine())!=null) {
+                //System.out.println(s);
+                String[] one = s.split(" ");
+                double x = Double.parseDouble(one[0]);
+                double y = Double.parseDouble(one[1]);
+
+                Point a = new Point(x, y);
+                points.add(a);
+            }
+        } catch (IOException e){
+            System.out.println(e.getMessage());
+        }
 
         int change;
         Scanner in = new Scanner(System.in);
@@ -142,6 +174,21 @@ public class Main {
 
 
         }while (change!=0);
+
+        FileWriter fw = new FileWriter("circles.txt");
+
+        for(int i=0; i<circles.size(); i++){
+            fw.write(circles.get(i).toString());
+            fw.write("\n");
+        }
+        fw.close();
+
+        fw = new FileWriter("points.txt");
+        for(int i=0; i<points.size(); i++){
+            fw.write(points.get(i).toString());
+            fw.write("\n");
+        }
+        fw.close();
 
     }
 

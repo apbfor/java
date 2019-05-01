@@ -19,9 +19,14 @@ public class Circle implements IDrawable {
         this.length = 2*3.14*radius;
     }
 
+//    @Override
+//    public String toString(){
+//        return "x = "+  center.getX()+"; y = "+center.getY()+"; radius = "+radius+"; length = "+length;
+//    }
+
     @Override
     public String toString(){
-        return "x = "+  center.getX()+"; y = "+center.getY()+"; radius = "+radius+"; length = "+length;
+        return center.getX()+" "+ center.getY() +" "+ radius;
     }
 
     @Override
