@@ -1,9 +1,6 @@
 package com.apbfor;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class Main {
@@ -12,20 +9,17 @@ public class Main {
 
         List<Circle> circles = new ArrayList();
         List<Point>  points  = new ArrayList();
-
+        FileWriter fw;
 
         try (BufferedReader br = new BufferedReader(new FileReader("circles.txt"))){
             String s;
             while ((s=br.readLine())!=null) {
-                //System.out.println(s);
                 String[] one = s.split(" ");
                 double x = Double.parseDouble(one[0]);
                 double y = Double.parseDouble(one[1]);
                 double radius = Double.parseDouble(one[2]);
 
-                Point center = new Point(x, y);
-                Circle a = new Circle(center, radius);
-                circles.add(a);
+                circles.add(new Circle(new Point(x,y),radius));
             }
         } catch (IOException e){
             System.out.println(e.getMessage());
@@ -34,13 +28,11 @@ public class Main {
         try (BufferedReader br = new BufferedReader(new FileReader("points.txt"))){
             String s;
             while ((s=br.readLine())!=null) {
-                //System.out.println(s);
                 String[] one = s.split(" ");
                 double x = Double.parseDouble(one[0]);
                 double y = Double.parseDouble(one[1]);
 
-                Point a = new Point(x, y);
-                points.add(a);
+                points.add(new Point(x, y));
             }
         } catch (IOException e){
             System.out.println(e.getMessage());
@@ -58,9 +50,7 @@ public class Main {
                     double x = in.nextDouble();
                     System.out.print("Y = ");
                     double y = in.nextDouble();
-
-                    Point a = new Point(x,y);
-                    points.add(a);
+                    points.add(new Point(x,y));
                     break;
                 }
                 case 2:{
@@ -71,10 +61,7 @@ public class Main {
                     double y = in.nextDouble();
                     System.out.print("Radius = ");
                     double radius = in.nextDouble();
-
-                    Point center = new Point(x,y);
-                    Circle a = new Circle(center,radius);
-                    circles.add(a);
+                    circles.add(new Circle(new Point(x,y),radius));
                     break;
                 }
 
@@ -161,10 +148,134 @@ public class Main {
                     break;
                 }
 
+                case 8: {
+                    int changes;
+                    PrintChange();
+                    List<Point> points1 = new ArrayList<>();
+
+                    for (int i = 0; i < points.size(); i++) {
+                        points1.add(points.get(i));
+                    }
+
+                    changes = in.nextInt();
+                    switch (changes) {
+                        case 1:
+                            break;
+                        case 2: {
+                            points1.sort((o1, o2) -> o1.compareTox(o2));
+                            break;
+                        }
+                        case 3: {
+                            points1.sort((o1, o2) -> o1.compareTox(o2));
+                            Collections.reverse(points1);
+                            break;
+                        }
+                    }
+                    String path;
+                    System.out.println("Введите путь/название файла");
+                    path = in.next();
+                    File file = new File(path);
+                    if(file.exists()){
+                        int fileextists;
+                        PrintFileExists();
+                        fileextists = in.nextInt();
+                        switch (fileextists){
+                            case 1:{
+                                fw = new FileWriter(file,true);
+                                for(int i=0; i<points1.size(); i++){
+                                    fw.write(points1.get(i).toString1());
+                                    fw.write("\n");
+                                }
+                                fw.close();
+                                break;
+                            }
+                            case 2:{
+                                fw = new FileWriter(file);
+                                for(int i=0; i<points1.size(); i++){
+                                    fw.write(points1.get(i).toString1());
+                                    fw.write("\n");
+                                }
+                                fw.close();
+                                break;
+                            }
+                            case 3:
+                                break;
+                        }
+                    }
+                    else {
+                        fw = new FileWriter(file);
+                        for(int i=0; i<points1.size(); i++){
+                            fw.write(points1.get(i).toString1());
+                            fw.write("\n");
+                        }
+                        fw.close();
+                    }
+                    break;
+                }
                 case 9:{
-                    circles.sort((o1, o2) -> o1.compareTox(o2));
-                    for(Circle circle :circles)
-                        circle.draw();
+                    int changes;
+                    PrintChange();
+                    List<Circle> circles1 = new ArrayList<>();
+
+                    for(int i = 0; i<circles.size(); i++){
+                        circles1.add(circles.get(i));
+                    }
+
+                    changes = in.nextInt();
+                    switch (changes) {
+                        case 1:
+                            break;
+                        case 2:{
+                            circles1.sort((o1, o2) -> o1.compareTox(o2));
+                            break;
+                        }
+                        case 3:{
+                            circles1.sort((o1, o2) -> o1.compareTox(o2));
+                            Collections.reverse(circles1);
+                            break;
+                        }
+                    }
+                    String path;
+                    System.out.println("Введите путь/название файла");
+                    path = in.next();
+                    File file = new File(path);
+                    if(file.exists()){
+                        int fileextists;
+                        PrintFileExists();
+                        fileextists = in.nextInt();
+                        switch (fileextists){
+                            case 1:{
+                                fw = new FileWriter(file,true);
+                                for(int i=0; i<circles1.size(); i++){
+                                    fw.write(circles1.get(i).toString1());
+                                    fw.write("\n");
+                                }
+                                fw.close();
+                                break;
+                            }
+                            case 2:{
+                                fw = new FileWriter(file);
+                                for(int i=0; i<circles1.size(); i++){
+                                    fw.write(circles1.get(i).toString1());
+                                    fw.write("\n");
+                                }
+                                fw.close();
+                                break;
+                            }
+                            case 3:
+                                break;
+                        }
+                    }
+                    else {
+                        fw = new FileWriter(file);
+                        for(int i=0; i<circles1.size(); i++){
+                            fw.write(circles1.get(i).toString1());
+                            fw.write("\n");
+                        }
+                        fw.close();
+                    }
+
+
                     break;
                 }
 
@@ -175,7 +286,7 @@ public class Main {
 
         }while (change!=0);
 
-        FileWriter fw = new FileWriter("circles.txt");
+        fw = new FileWriter("circles.txt");
 
         for(int i=0; i<circles.size(); i++){
             fw.write(circles.get(i).toString());
@@ -189,6 +300,7 @@ public class Main {
             fw.write("\n");
         }
         fw.close();
+
 
     }
 
@@ -208,7 +320,16 @@ public class Main {
             System.out.println("6.Удаление из списка окружностей одной");
             System.out.println("7.Вывод на экран точек, находящихся внутри хотя бы одной окружности" +
                     " из списка окружностей");
+            System.out.println("8. Сохранение в файл точек");
+            System.out.println("9. Сохранение в файл окружностей");
 
+        }
+
+        static void PrintFileExists(){
+            System.out.println("Файл уже существует. Выберите :");
+            System.out.println("1. Дописать данные в конец файла");
+            System.out.println("2. Заменить содержимое файла");
+            System.out.println("3. Не записывать ничего");
         }
 
         public static void PrintInside(List<Point> points, List<Circle> circles){

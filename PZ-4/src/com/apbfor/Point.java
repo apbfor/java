@@ -22,6 +22,10 @@ public class Point implements IDrawable {
         return x + " " + y;
     }
 
+    public String toString1(){
+        return "This is point. X = " + x + "; Y = " + y;
+    }
+
     @Override
     public boolean equals(Object second) {
         if (!second.getClass().isInstance(new Point())||second==null)

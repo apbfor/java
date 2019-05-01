@@ -29,6 +29,10 @@ public class Circle implements IDrawable {
         return center.getX()+" "+ center.getY() +" "+ radius;
     }
 
+    public String toString1(){
+        return "This is Circle. X = "+center.getX() + "; Y = "+ center.getY() + "; radius = "+radius;
+    }
+
     @Override
     public boolean equals(Object second) {
         if (!second.getClass().isInstance(new Circle())||second==null)
