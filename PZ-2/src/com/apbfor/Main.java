@@ -1,6 +1,5 @@
 package com.apbfor;
 
-
 public class Main {
 
     public static void main(String[] args) {
