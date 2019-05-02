@@ -63,7 +63,7 @@ public class Main {
         password = in.next();
         User newUser = new User(name, password);
 
-        for (User user : users) {
+        start : for (User user : users) {
             if (newUser.equals(user) && user.isRoot()) {
                 System.out.println("congratulations, you are root");
                 int change = 10;
@@ -225,6 +225,8 @@ public class Main {
 
                     }
                 }
+                break start;
+
             }
         else if (newUser.equals(user)) {
                 System.out.println("You have been logged as " + user.name);
