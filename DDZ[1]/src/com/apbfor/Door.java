@@ -1,6 +1,8 @@
 package com.apbfor;
 
-public class Door {
+import java.io.Serializable;
+
+public class Door implements Serializable {
     String name;
     int keyNumber;
 

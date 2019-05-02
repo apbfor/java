@@ -1,5 +1,7 @@
 package com.apbfor;
 
+import javax.annotation.processing.SupportedSourceVersion;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,21 +15,46 @@ public class Main {
 
         //Здесь будет импорт данных из файла
 
-        users.add(new User("Vasya", "vasya"));
-        users.add(new User("Petya", "petya"));
-        users.add(new User("Igor", "igor"));
-        users.add(new User("root","root"));
+//        users.add(new User("Vasya", "vasya"));
+//        users.add(new User("Petya", "petya"));
+//        users.add(new User("Igor", "igor"));
+//        users.add(new User("root","root"));
+//
+//        keys.add(new Key(156, users.get(0)));
+//        keys.add(new Key(157, users.get(1)));
+//        keys.add(new Key(158, users.get(2)));
+//        keys.add(new Key(159, users.get(2)));
+//
+//        doors.add(new Door("VasyaRoom", 156));
+//        doors.add(new Door("PetyaRoom", 157));
+//        doors.add(new Door("IgorRoom", 158));
+//        doors.add(new Door("IgorRoom2", 159));
 
-        keys.add(new Key(156, users.get(0)));
-        keys.add(new Key(157, users.get(1)));
-        keys.add(new Key(158, users.get(2)));
-        keys.add(new Key(159, users.get(2)));
+        File doorr = new File("doors.dat");
+        File keyy = new File("keys.dat");
+        File userr = new File("users.dat");
 
-        doors.add(new Door("VasyaRoom", 156));
-        doors.add(new Door("PetyaRoom", 157));
-        doors.add(new Door("IgorRoom", 158));
-        doors.add(new Door("IgorRoom2", 159));
+        if(doorr.exists()&&keyy.exists()&&userr.exists()) {
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(doorr))) {
+                doors = ((ArrayList<Door>) ois.readObject());
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
 
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(keyy))) {
+                keys = ((ArrayList<Key>) ois.readObject());
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(userr))) {
+                users = ((ArrayList<User>) ois.readObject());
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }else {
+            System.out.println("Data was lost, can't work now");
+        }
         String name;
         String password;
         System.out.print("Enter your name : ");
@@ -37,7 +64,7 @@ public class Main {
         User newUser = new User(name, password);
 
         for (User user : users) {
-            if (newUser.equals(user) && user.name.equals("root")) {
+            if (newUser.equals(user) && user.isRoot()) {
                 System.out.println("congratulations, you are root");
                 int change = 10;
                 while (change != 0) {
@@ -120,7 +147,6 @@ public class Main {
                                 }
                                 case 3: {
                                     String nameOfDoor;
-                                    int keyVal;
                                     System.out.println("Enter a name of door");
                                     nameOfDoor = in.next();
                                     for (Door door : doors) {
@@ -149,10 +175,46 @@ public class Main {
                             break;
                         }
 
-                        case 9: {
-                            String owner = in.next();
-                            userKeys(keys, owner);
+                        case 5:{
+                            printSubMenu();
+                            int subChange = in.nextInt();
+                            switch (subChange){
+                                case 1:{
+                                    int numberOfUser = 0;
+                                    for (User user1 : users) {
+                                        System.out.println(numberOfUser + ". User is " + user1.name);
+                                        numberOfUser++;
+                                    }
+                                    break;
+                                }
+
+                                case 2: {
+                                    System.out.println("Enter a name of user");
+                                    name = in.next();
+                                    System.out.println("Enter a password for new user");
+                                    password = in.next();
+                                    User newUser1 = new User(name, password);
+                                    users.add(newUser1);
+                                    break;
+                                }
+                                case 3: {
+                                    String nameOfUser;
+                                    System.out.println("Enter a name of user");
+                                    nameOfUser = in.next();
+                                    for (User user1 : users) {
+                                        if (user1.name.equals(nameOfUser)) {
+                                            System.out.println("user found and was deleted");
+                                            users.remove(user1);
+                                            break;
+                                        }
+                                    }
+                                    break;
+                                }
+                            }
+                            break;
                         }
+
+
 
 
                         case 0:
@@ -186,6 +248,24 @@ public class Main {
 
         }
 
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("users.dat"))){
+            oos.writeObject(users);
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("doors.dat"))){
+            oos.writeObject(doors);
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("keys.dat"))){
+            oos.writeObject(keys);
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+
 }
 
 
@@ -195,6 +275,7 @@ public class Main {
         System.out.println("2. Edit doors list");
         System.out.println("3. Make list of doors list that can be opened by one key");
         System.out.println("4. Make list of keys that can open doors");
+        System.out.println("5. Edit users list");
         System.out.println("0. Exit");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }

@@ -1,6 +1,8 @@
 package com.apbfor;
 
-public class Key {
+import java.io.Serializable;
+
+public class Key implements Serializable {
     int number;
     User owner;
 

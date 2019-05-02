@@ -1,6 +1,8 @@
 package com.apbfor;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private String password;
     String name;
 
@@ -38,7 +40,7 @@ public class User {
                 j=0;
             }
         }
-        System.out.println("Encoded message: "+encmsg);
+        //System.out.println("Encoded message: "+encmsg); //пригодится для добавления паролей в базу
         return encmsg;
     }
 
@@ -48,4 +50,6 @@ public class User {
             return true;
         return false;
     }
+
+
 }
