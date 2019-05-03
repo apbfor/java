@@ -1,0 +1,4 @@
+This is point. X = 55.0; Y = 63.0
+This is point. X = 18.0; Y = 9.0
+This is point. X = 9.0; Y = 5.0
+This is point. X = 5.0; Y = 5.0

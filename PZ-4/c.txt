@@ -1,9 +1,20 @@
 This is point. X = 5.0; Y = 5.0
 This is point. X = 18.0; Y = 9.0
 This is point. X = 9.0; Y = 5.0
-help plsThis is Circle. X = 1.0; Y = 2.0; radius = 3.0
+help pls
+This is Circle. X = 1.0; Y = 2.0; radius = 3.0
 This is Circle. X = 2.0; Y = 3.0; radius = 4.0
 This is Circle. X = 3.0; Y = 4.0; radius = 5.0
 This is Circle. X = 4.0; Y = 5.0; radius = 6.0
 This is Circle. X = 5.0; Y = 5.0; radius = 6.0
 help pls
+This is point. X = 554.6; Y = 98.3
+This is point. X = 99.5; Y = 87.2
+This is point. X = 18.0; Y = 9.0
+This is point. X = 9.0; Y = 5.0
+This is point. X = 5.0; Y = 5.0
+This is Circle. X = 1.0; Y = 2.0; radius = 3.0
+This is Circle. X = 2.0; Y = 3.0; radius = 4.0
+This is Circle. X = 3.0; Y = 4.0; radius = 5.0
+This is Circle. X = 4.0; Y = 5.0; radius = 6.0
+This is Circle. X = 5.0; Y = 5.0; radius = 6.0
