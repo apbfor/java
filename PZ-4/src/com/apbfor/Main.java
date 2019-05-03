@@ -7,8 +7,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        List<Circle> circles = new ArrayList();
-        List<Point>  points  = new ArrayList();
+        List<Circle> circles = new ArrayList<>();
+        List<Point>  points  = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader("circles.txt"))){ //читаем дамп окружностей
             String s;
