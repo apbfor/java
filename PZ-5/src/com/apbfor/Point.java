@@ -1,7 +1,13 @@
 package com.apbfor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Point implements IDrawable {
     private double x, y;
+    private List<Point> storage = new ArrayList<>();
+
+    void
 
     Point(double x, double y) {
         this.x = x;
