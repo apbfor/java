@@ -2,12 +2,30 @@ package com.apbfor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Point implements IDrawable {
     private double x, y;
     private List<Point> storage = new ArrayList<>();
 
-    void
+    void makeList(int minCount, int maxCount){
+        Random random = new Random();
+        int count = random.nextInt(maxCount - minCount);
+        count += minCount;
+        int minValue = -10;
+        int maxValue = 10;
+        for (int i=0; i<count; i++){
+            double valueX = random.nextInt(maxValue - minValue);
+            double valueY = random.nextInt(maxValue - minValue);
+            valueX += minValue;
+            valueY += minValue;
+            storage.add(new Point(valueX, valueY));
+        }
+    }
+
+    List<Point> getStorage() {
+        return  storage;
+    }
 
     Point(double x, double y) {
         this.x = x;
