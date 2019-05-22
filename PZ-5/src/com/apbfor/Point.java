@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static java.lang.Math.sqrt;
+
 public class Point implements IDrawable {
     private double x, y;
     private List<Point> storage = new ArrayList<>();
@@ -46,8 +48,8 @@ public class Point implements IDrawable {
         return x + " " + y;
     }
 
-    public String toString1(){
-        return "This is point. X = " + x + "; Y = " + y;
+    public String giveDistance(){
+        return "This is point. X = " + x  + "; Y = " + y + "; distance from (0,0) = "+ sqrt(x*x+y*y) ;
     }
 
     @Override
